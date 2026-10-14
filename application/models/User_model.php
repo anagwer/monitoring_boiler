@@ -30,6 +30,18 @@ class User_model extends CI_Model {
         return $this->db->get_where('users', array('id' => $id))->row();
     }
 
+    public function get_by_username($username)
+    {
+        return $this->db->get_where('users', array('username' => $username))->row();
+    }
+
+    public function get_pemilik()
+    {
+        $this->db->where('role', 'pemilik');
+        $this->db->where('status', 'aktif');
+        return $this->db->get('users')->row();
+    }
+
     public function insert($data)
     {
         return $this->db->insert('users', $data);

@@ -64,6 +64,14 @@ class Pengguna extends CI_Controller {
         if (!$user) {
             $this->session->set_flashdata('error', 'Data pengguna tidak ditemukan.');
             redirect('pengguna');
+            return;
+        }
+
+        // Proteksi: Akun Pemilik hanya dapat diedit oleh Pemilik itu sendiri
+        if ($user->role === 'pemilik' && $this->session->userdata('role') !== 'pemilik') {
+            $this->session->set_flashdata('error', 'Akses ditolak: Akun Pemilik dilindungi dan tidak dapat diubah oleh ABK atau Admin.');
+            redirect('pengguna');
+            return;
         }
 
         $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
@@ -113,8 +121,22 @@ class Pengguna extends CI_Controller {
             return;
         }
 
+        $user = $this->User_model->get_by_id($id);
+        if (!$user) {
+            $this->session->set_flashdata('error', 'Data pengguna tidak ditemukan.');
+            redirect('pengguna');
+            return;
+        }
+
+        // Proteksi: User pemilik tidak bisa dihapus oleh ABK atau Admin
+        if ($user->role === 'pemilik' && $this->session->userdata('role') !== 'pemilik') {
+            $this->session->set_flashdata('error', 'Akses ditolak: Akun Pemilik dilindungi dan tidak dapat dihapus oleh ABK atau Admin.');
+            redirect('pengguna');
+            return;
+        }
+
         if ($this->User_model->delete($id)) {
-            $this->session->set_flashdata('success', 'Data pengguna berhasil dihapus.');
+            $this->session->set_flashdata('success', 'Data pengguna ' . htmlspecialchars($user->name) . ' berhasil dihapus.');
         } else {
             $this->session->set_flashdata('error', 'Gagal menghapus pengguna.');
         }

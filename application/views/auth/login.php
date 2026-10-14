@@ -67,7 +67,12 @@
 
         <!-- Password Input Group -->
         <div class="login-form-group mb-4">
-          <label for="password" class="login-form-label">Password</label>
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <label for="password" class="login-form-label mb-0">Password</label>
+            <a href="<?= base_url('auth/lupa_password') ?>" class="text-decoration-none fw-semibold" style="font-size: 0.8rem; color: #b4f105; transition: opacity 0.2s;" title="Klik untuk reset password">
+              <i class="bi bi-key me-1"></i>Lupa Password?
+            </a>
+          </div>
           <div class="login-input-group">
             <i class="bi bi-shield-lock input-icon"></i>
             <input type="password" name="password" id="password" class="login-input login-input-password" placeholder="••••••••" required autocomplete="current-password">

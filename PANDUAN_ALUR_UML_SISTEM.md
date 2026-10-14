@@ -5,6 +5,7 @@ Dokumen ini dibuat ringkas dan praktis agar kamu bisa langsung menggambarnya ke 
 ---
 
 ## 👥 1. Aktor Sistem
+
 1. **Petugas ABK / Admin**: Mengelola data kandang, periode batch, dan mencatat laporan harian kandang.
 2. **Pemilik / Manajemen**: Memantau dashboard performa (KPI & grafik), menerima peringatan kematian, input bobot panen (hitung FCR & IP), dan cetak laporan.
 
@@ -15,6 +16,7 @@ Dokumen ini dibuat ringkas dan praktis agar kamu bisa langsung menggambarnya ke 
 Sistem memiliki **5 Use Case Utama** (terhubung langsung ke Aktor dengan garis lurus), yang kemudian menjorok/bercabang ke oval-oval spesifik menggunakan relasi `<<include>>` (wajib) dan `<<extend>>` (kondisional):
 
 ### 5 Use Case Utama:
+
 1. **(UC-01) Login Sistem** *(Aktor: ABK & Pemilik)*
 2. **(UC-02) Input Laporan Harian** *(Aktor: Petugas ABK)*
 3. **(UC-03) Monitoring Dashboard Eksekutif** *(Aktor: Pemilik)*
@@ -24,27 +26,112 @@ Sistem memiliki **5 Use Case Utama** (terhubung langsung ke Aktor dengan garis l
 ---
 
 ### Pemetaan 5 Bundaran Utama ke Oval Cabang:
-| No | 5 Bundaran Utama | Oval Cabang (Menjorok) | Tipe Relasi | Keterangan |
-|---|---|---|---|---|
-| **1** | **Login Sistem** | Verifikasi Kredensial & Role | `<<include>>` | Sistem selalu memeriksa username, hash password, dan role |
-| | | Tampil Pesan Gagal Login | `<<extend>>` | Hanya muncul jika password salah atau akun nonaktif |
-| **2** | **Input Laporan Harian** | Kalkulasi Hari ke-X & Rekomendasi Pakan | `<<include>>` | Otomatis terhitung dari selisih tanggal DOC masuk |
-| | | Validasi Duplikasi Laporan | `<<extend>>` | Menolak jika tanggal pada batch yang sama sudah diisi |
-| **3** | **Monitoring Dashboard** | Tampil 6 Grafik Analitik Kinerja | `<<include>>` | Memuat grafik bobot, tren mortalitas, mikroklimat, dll |
-| | | Peringatan Kematian (Early Warning) | `<<extend>>` | Hanya muncul jika mortalitas harian $\ge$ 1% populasi |
-| **4** | **Input Bobot Panen** | Hitung Otomatis FCR & Indeks Prestasi (IP) | `<<include>>` | Menghitung rumus efisiensi panen setelah bobot riil diisi |
-| **5** | **Cetak Laporan Produksi** | Generate Dokumen Kop PT BTS & Kolom TTD | `<<include>>` | Menyiapkan lembar resmi siap print/simpan PDF |
+
+| No          | 5 Bundaran Utama                 | Oval Cabang (Menjorok)                     | Tipe Relasi     | Keterangan                                                |
+| ----------- | -------------------------------- | ------------------------------------------ | --------------- | --------------------------------------------------------- |
+| **1** | **Login Sistem**           | Verifikasi Kredensial & Role               | `<<include>>` | Sistem selalu memeriksa username, hash password, dan role |
+|             |                                  | Tampil Pesan Gagal Login                   | `<<extend>>`  | Hanya muncul jika password salah atau akun nonaktif       |
+| **2** | **Input Laporan Harian**   | Kalkulasi Hari ke-X & Rekomendasi Pakan    | `<<include>>` | Otomatis terhitung dari selisih tanggal DOC masuk         |
+|             |                                  | Validasi Duplikasi Laporan                 | `<<extend>>`  | Menolak jika tanggal pada batch yang sama sudah diisi     |
+| **3** | **Monitoring Dashboard**   | Tampil 6 Grafik Analitik Kinerja           | `<<include>>` | Memuat grafik bobot, tren mortalitas, mikroklimat, dll    |
+|             |                                  | Peringatan Kematian (Early Warning)        | `<<extend>>`  | Hanya muncul jika mortalitas harian$\ge$ 1% populasi    |
+| **4** | **Input Bobot Panen**      | Hitung Otomatis FCR & Indeks Prestasi (IP) | `<<include>>` | Menghitung rumus efisiensi panen setelah bobot riil diisi |
+| **5** | **Cetak Laporan Produksi** | Generate Dokumen Kop PT BTS & Kolom TTD    | `<<include>>` | Menyiapkan lembar resmi siap print/simpan PDF             |
 
 ---
 
-### Visual Use Case Diagram (5 Bundaran Utama & Cabangnya):
+### Visual Use Case Diagram Resmi (Bentuk Aktor & Label Lengkap):
+
+![Use Case Diagram](assets/images/use_case_diagram.svg)
+
+---
+
+### 📝 Aturan Standar UML Use Case (Penting untuk Ujian/Laporan):
+
+1. **Bentuk Aktor**: Digambarkan sebagai **Stick Figure (Orang-orangan)**, **BUKAN** kotak/persegi panjang.
+2. **Garis Aktor ke Use Case**: Menggunakan **garis lurus polos (Solid Line / Association)** tanpa panah.
+3. **Relasi `<<include>>`**:
+   - Menandakan use case anak **wajib dijalankan** saat use case utama berjalan.
+   - Arah panah putus-putus: **Dari Use Case Utama ───► Ke Use Case Include**.
+4. **Relasi `<<extend>>`**:
+   - Menandakan use case tambahan yang **hanya berjalan pada kondisi tertentu** (misal jika login gagal atau kematian melebihi batas).
+   - Arah panah putus-putus (Standar UML): **Dari Use Case Extend ───► Ke Use Case Utama**.
+
+---
+
+### Kode Diagram (PlantUML - Standard StarUML / PlantText):
+
+> Salin kode ini ke **[PlantText.com](https://www.planttext.com)** atau **StarUML** untuk mendapatkan diagram vektor otomatis dengan bentuk aktor stickman asli:
+
+```plantuml
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Petugas ABK" as ABK
+actor "Pemilik" as PEMILIK
+
+rectangle "Sistem Monitoring Ayam Broiler PT BTS" {
+  ' 5 Use Case Utama
+  usecase "1. Login Sistem" as UC1
+  usecase "2. Input Laporan Harian" as UC2
+  usecase "3. Monitoring Dashboard Eksekutif" as UC3
+  usecase "4. Input Bobot Panen & Tutup Batch" as UC4
+  usecase "5. Cetak Laporan Produksi" as UC5
+
+  ' Sub Use Case (Include & Extend)
+  usecase "Verifikasi Kredensial & Role" as UC1_INC
+  usecase "Tampil Pesan Gagal Login" as UC1_EXT
+
+  usecase "Kalkulasi Hari ke-X & Rekomendasi Pakan" as UC2_INC
+  usecase "Validasi Duplikasi Laporan" as UC2_EXT
+
+  usecase "Tampil 6 Grafik Analitik Kinerja" as UC3_INC
+  usecase "Peringatan Kematian (Early Warning)" as UC3_EXT
+
+  usecase "Hitung Otomatis FCR & Indeks Prestasi (IP)" as UC4_INC
+  usecase "Generate Dokumen Kop PT BTS & TTD" as UC5_INC
+}
+
+' Relasi Asosiasi (Aktor ke 5 Use Case Utama)
+ABK -- UC1
+ABK -- UC2
+
+PEMILIK -- UC1
+PEMILIK -- UC3
+PEMILIK -- UC4
+PEMILIK -- UC5
+
+' Relasi <<include>> (Dari Use Case Utama -> Sub Use Case)
+UC1 ..> UC1_INC : <<include>>
+UC2 ..> UC2_INC : <<include>>
+UC3 ..> UC3_INC : <<include>>
+UC4 ..> UC4_INC : <<include>>
+UC5 ..> UC5_INC : <<include>>
+
+' Relasi <<extend>> (Dari Sub Use Case Kondisional -> Use Case Utama)
+UC1_EXT ..> UC1 : <<extend>>
+UC2_EXT ..> UC2 : <<extend>>
+UC3_EXT ..> UC3 : <<extend>>
+@enduml
+```
+
+---
+
+### Kode Diagram Versi Mermaid (Markdown Preview):
+
+> *Catatan Mermaid*: Syntax Mermaid `flowchart` secara teknis tidak memiliki simbol stickman bawaan sehingga menggunakan representasi oval dengan label aktor. Teks relasi ditulis dengan entitas `&laquo;include&raquo;` dan `&laquo;extend&raquo;` agar tidak hilang/terpotong oleh parser Markdown.
 
 ```mermaid
 flowchart LR
-    ABK["👷‍♂️ Petugas ABK"]
-    PEMILIK["👨‍💼 Pemilik"]
+    %% Aktor Sistem
+    subgraph AKTOR["👥 Aktor Sistem"]
+        ABK(["👤 Petugas ABK<br/>(Actor Stickman)"])
+        PEMILIK(["👤 Pemilik<br/>(Actor Stickman)"])
+    end
 
-    subgraph "Sistem Monitoring Ayam Broiler PT BTS"
+    subgraph SISTEM["Sistem Monitoring Ayam Broiler PT BTS"]
         %% 5 Bundaran / Oval Utama
         UC1(["1. Login Sistem"])
         UC2(["2. Input Laporan Harian"])
@@ -76,20 +163,31 @@ flowchart LR
     PEMILIK --- UC4
     PEMILIK --- UC5
 
-    %% Garis Putus-putus Menjorok (Include & Extend)
-    UC1 -.->|<<include>>| UC1_INC
-    UC1 -.->|<<extend>>| UC1_EXT
+    %% Relasi <<include>> (Dari Utama ke Cabang)
+    UC1 -.->|«include»| UC1_INC
+    UC2 -.->|«include»| UC2_INC
+    UC3 -.->|«include»| UC3_INC
+    UC4 -.->|«include»| UC4_INC
+    UC5 -.->|«include»| UC5_INC
 
-    UC2 -.->|<<include>>| UC2_INC
-    UC2 -.->|<<extend>>| UC2_EXT
-
-    UC3 -.->|<<include>>| UC3_INC
-    UC3 -.->|<<extend>>| UC3_EXT
-
-    UC4 -.->|<<include>>| UC4_INC
-
-    UC5 -.->|<<include>>| UC5_INC
+    %% Relasi <<extend>> (Dari Cabang Kondisional kembali ke Utama)
+    UC1_EXT -.->|«extend»| UC1
+    UC2_EXT -.->|«extend»| UC2
+    UC3_EXT -.->|«extend»| UC3
 ```
+
+---
+
+### 🎨 Tips Menggambar Cepat di Draw.io:
+
+1. **Aktor**: Di panel sebelah kiri Draw.io, pilih kategori **UML** atau **General**, cari ikon **"Actor"** (gambar orang-orangan bertangan dan berkaki). Tarik 2 aktor ke sebelah kiri lembar kerja: `Petugas ABK` dan `Pemilik`. **Jangan gunakan shape kotak**.
+2. **Boundary Sistem**: Tarik bentuk kotak besar di sebelah kanan aktor, beri label `Sistem Monitoring Ayam Broiler PT BTS`, atur border garis putus-putus.
+3. **Use Case**: Gunakan bentuk **Ellipse / Oval**. Buat 5 oval utama di kolom tengah dan oval cabang di sebelah kanannya.
+4. **Garis Aktor ke Oval**: Gunakan garis lurus biasa tanpa panah (*Line*).
+5. **Garis Include & Extend**:
+   - Gunakan garis putus-putus berpanah (*Dashed line with arrow*).
+   - Klik 2x pada garis untuk mengetikkan teks `<<include>>` atau `<<extend>>`.
+   - Pastikan panah `<<include>>` mengarah ke oval wajib, sedangkan panah `<<extend>>` mengarah dari oval kondisional kembali ke use case utamanya.
 
 ---
 
@@ -109,23 +207,24 @@ Simbol yang Digunakan:
 
 ### 3.1 Activity Diagram 1: Login Sistem
 
-| Pengguna (ABK / Pemilik) | System |
-| :--- | :--- |
-| ● *(Mulai)* | |
-| ↓ | |
-| **[Masuk Aplikasi]** | ───► **[Tampil Form Login]** |
-| | │ |
-| **[Memasukkan Username & Password]** | ◄───┘ |
-| │ | |
-| └───────────────────────────────► | **< Benar? >** |
-| | ├── **Tidak** ──► Kembali ke **[Tampil Form Login]** |
-| | └── **Ya** |
-| | ↓ |
-| | **[Tampil Dashboard / Menu Utama]** |
-| | ↓ |
-| | (●) *(Selesai)* |
+| Pengguna (ABK / Pemilik)                                           | System                                                                |
+| :----------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| ●*(Mulai)*                                                      |                                                                       |
+| ↓                                                                 |                                                                       |
+| **[Masuk Aplikasi]**                                         | ───►**[Tampil Form Login]**                                 |
+|                                                                    | │                                                                    |
+| **[Memasukkan Username & Password]**                         | ◄───┘                                                            |
+| │                                                                 |                                                                       |
+| └───────────────────────────────► | **< Benar? >**                                                  |
+|                                                                    | ├──**Tidak** ──► Kembali ke **[Tampil Form Login]** |
+|                                                                    | └──**Ya**                                                    |
+|                                                                    | ↓                                                                    |
+|                                                                    | **[Tampil Dashboard / Menu Utama]**                             |
+|                                                                    | ↓                                                                    |
+|                                                                    | (●)*(Selesai)*                                                     |
 
 #### Versi Visual Diagram:
+
 ```mermaid
 flowchart TD
     subgraph Pengguna["Pengguna (ABK / Pemilik)"]
@@ -152,31 +251,32 @@ flowchart TD
 
 ### 3.2 Activity Diagram 2: Input Laporan Harian Kandang
 
-| Petugas ABK | System |
-| :--- | :--- |
-| ● *(Mulai)* | |
-| ↓ | |
-| **[Pilih Menu Input Harian]** | ───► **[Tampil Form Input Harian]** |
-| | │ |
-| **[Pilih Batch Periode & Tanggal]** | ◄───┘ |
-| │ | |
-| └───────────────────────────────► | **[Hitung Otomatis Hari ke-X & Tentukan Jenis Pakan]** |
-| | │ |
-| **[Input Data Kematian, Pakan, Suhu, & Bobot]** | ◄───┘ |
-| │ | |
-| **[Klik Tombol Simpan]** | |
-| │ | |
-| └───────────────────────────────► | **< Data Tanggal Sudah Ada? >** |
-| | ├── **Ya** ──► **[Tampil Notifikasi Error Duplikat]** ──► kembali ke Form |
-| | └── **Tidak** |
-| | ↓ |
-| | **[Simpan Data ke Database & Update Sisa Populasi]** |
-| | ↓ |
-| | **[Tampil Notifikasi Berhasil & Buka Riwayat]** |
-| | ↓ |
-| | (●) *(Selesai)* |
+| Petugas ABK                                                        | System                                                                                        |
+| :----------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
+| ●*(Mulai)*                                                      |                                                                                               |
+| ↓                                                                 |                                                                                               |
+| **[Pilih Menu Input Harian]**                                | ───►**[Tampil Form Input Harian]**                                                  |
+|                                                                    | │                                                                                            |
+| **[Pilih Batch Periode & Tanggal]**                          | ◄───┘                                                                                    |
+| │                                                                 |                                                                                               |
+| └───────────────────────────────► | **[Hitung Otomatis Hari ke-X & Tentukan Jenis Pakan]**                                  |
+|                                                                    | │                                                                                            |
+| **[Input Data Kematian, Pakan, Suhu, & Bobot]**              | ◄───┘                                                                                    |
+| │                                                                 |                                                                                               |
+| **[Klik Tombol Simpan]**                                     |                                                                                               |
+| │                                                                 |                                                                                               |
+| └───────────────────────────────► | **< Data Tanggal Sudah Ada? >**                                                         |
+|                                                                    | ├──**Ya** ──► **[Tampil Notifikasi Error Duplikat]** ──► kembali ke Form |
+|                                                                    | └──**Tidak**                                                                         |
+|                                                                    | ↓                                                                                            |
+|                                                                    | **[Simpan Data ke Database & Update Sisa Populasi]**                                    |
+|                                                                    | ↓                                                                                            |
+|                                                                    | **[Tampil Notifikasi Berhasil & Buka Riwayat]**                                         |
+|                                                                    | ↓                                                                                            |
+|                                                                    | (●)*(Selesai)*                                                                             |
 
 #### Versi Visual Diagram:
+
 ```mermaid
 flowchart TD
     subgraph ABK["Petugas ABK"]
@@ -213,23 +313,24 @@ flowchart TD
 
 ### 3.3 Activity Diagram 3: Monitoring Dashboard Eksekutif
 
-| Pemilik | System |
-| :--- | :--- |
-| ● *(Mulai)* | |
-| ↓ | |
-| **[Pilih Menu Dashboard]** | ───► **[Ambil Data Periode & Hitung KPI (Mortalitas, FCR, Pakan)]** |
-| | ↓ |
-| | **[Render 6 Grafik Analitik Kinerja]** |
-| | ↓ |
-| | **< Kematian Harian >= 1% Populasi? >** |
-| | ├── **Ya** ──► **[Tampilkan Banner Early Warning Merah]** |
-| | └── **Tidak** ─► **[Tampilkan Status Normal]** |
-| | │ |
-| **[Melihat Analisis & Evaluasi Kondisi Ayam]** | ◄───┘ |
-| ↓ | |
-| (●) *(Selesai)* | |
+| Pemilik                                              | System                                                                       |
+| :--------------------------------------------------- | :--------------------------------------------------------------------------- |
+| ●*(Mulai)*                                        |                                                                              |
+| ↓                                                   |                                                                              |
+| **[Pilih Menu Dashboard]**                     | ───►**[Ambil Data Periode & Hitung KPI (Mortalitas, FCR, Pakan)]** |
+|                                                      | ↓                                                                           |
+|                                                      | **[Render 6 Grafik Analitik Kinerja]**                                 |
+|                                                      | ↓                                                                           |
+|                                                      | **< Kematian Harian >= 1% Populasi? >**                                |
+|                                                      | ├──**Ya** ──► **[Tampilkan Banner Early Warning Merah]**   |
+|                                                      | └──**Tidak** ─► **[Tampilkan Status Normal]**               |
+|                                                      | │                                                                           |
+| **[Melihat Analisis & Evaluasi Kondisi Ayam]** | ◄───┘                                                                   |
+| ↓                                                   |                                                                              |
+| (●)*(Selesai)*                                    |                                                                              |
 
 #### Versi Visual Diagram:
+
 ```mermaid
 flowchart TD
     subgraph Pemilik["Pemilik"]
@@ -258,27 +359,28 @@ flowchart TD
 
 ### 3.4 Activity Diagram 4: Input Bobot Panen & Perhitungan FCR / IP
 
-| Pemilik | System |
-| :--- | :--- |
-| ● *(Mulai)* | |
-| ↓ | |
-| **[Buka Menu Laporan Produksi]** | ───► **[Tampilkan Data Rekap Siklus Pemeliharaan]** |
-| | │ |
-| **[Buka Modal Tutup Panen]** | ◄───┘ |
-| │ | |
-| **[Masukkan Total Bobot Panen Riil (Kg)]** | |
-| │ | |
-| **[Klik Simpan & Selesai Panen]** | |
-| │ | |
-| └───────────────────────────────► | **[Update Status Batch Menjadi 'Selesai']** |
-| | ↓ |
-| | **[Hitung Otomatis FCR Final & Nilai Indeks Prestasi (IP)]** |
-| | ↓ |
-| | **[Tampilkan Hasil Evaluasi Kinerja (Istimewa/Baik/Kurang)]** |
-| | ↓ |
-| | (●) *(Selesai)* |
+| Pemilik                                                            | System                                                              |
+| :----------------------------------------------------------------- | :------------------------------------------------------------------ |
+| ●*(Mulai)*                                                      |                                                                     |
+| ↓                                                                 |                                                                     |
+| **[Buka Menu Laporan Produksi]**                             | ───►**[Tampilkan Data Rekap Siklus Pemeliharaan]**        |
+|                                                                    | │                                                                  |
+| **[Buka Modal Tutup Panen]**                                 | ◄───┘                                                          |
+| │                                                                 |                                                                     |
+| **[Masukkan Total Bobot Panen Riil (Kg)]**                   |                                                                     |
+| │                                                                 |                                                                     |
+| **[Klik Simpan & Selesai Panen]**                            |                                                                     |
+| │                                                                 |                                                                     |
+| └───────────────────────────────► | **[Update Status Batch Menjadi 'Selesai']**                   |
+|                                                                    | ↓                                                                  |
+|                                                                    | **[Hitung Otomatis FCR Final & Nilai Indeks Prestasi (IP)]**  |
+|                                                                    | ↓                                                                  |
+|                                                                    | **[Tampilkan Hasil Evaluasi Kinerja (Istimewa/Baik/Kurang)]** |
+|                                                                    | ↓                                                                  |
+|                                                                    | (●)*(Selesai)*                                                   |
 
 #### Versi Visual Diagram:
+
 ```mermaid
 flowchart TD
     subgraph Pemilik["Pemilik"]
@@ -310,21 +412,21 @@ flowchart TD
 
 ### 3.5 Activity Diagram 5: Cetak Laporan Produksi Resmi
 
-| Pemilik | System |
-| :--- | :--- |
-| ● *(Mulai)* | |
-| ↓ | |
-| **[Pilih Periode Laporan]** | ───► **[Ambil Data Detail Rekap & Profil Perusahaan]** |
-| | │ |
-| **[Klik Tombol Cetak / PDF]** | ◄───┘ |
-| │ | |
+| Pemilik                                                            | System                                                          |
+| :----------------------------------------------------------------- | :-------------------------------------------------------------- |
+| ●*(Mulai)*                                                      |                                                                 |
+| ↓                                                                 |                                                                 |
+| **[Pilih Periode Laporan]**                                  | ───►**[Ambil Data Detail Rekap & Profil Perusahaan]** |
+|                                                                    | │                                                              |
+| **[Klik Tombol Cetak / PDF]**                                | ◄───┘                                                      |
+| │                                                                 |                                                                 |
 | └───────────────────────────────► | **[Siapkan Format Cetak Resmi (Kop PT BTS & Kolom TTD)]** |
-| | ↓ |
-| | **[Buka Kotak Dialog Print Browser / PDF]** |
-| | │ |
-| **[Simpan PDF / Cetak ke Printer]** | ◄───┘ |
-| ↓ | |
-| (●) *(Selesai)* | |
+|                                                                    | ↓                                                              |
+|                                                                    | **[Buka Kotak Dialog Print Browser / PDF]**               |
+|                                                                    | │                                                              |
+| **[Simpan PDF / Cetak ke Printer]**                          | ◄───┘                                                      |
+| ↓                                                                 |                                                                 |
+| (●)*(Selesai)*                                                  |                                                                 |
 
 ---
 
@@ -335,6 +437,7 @@ Setiap Sequence Diagram memetakan alur: **Aktor $\rightarrow$ Tampilan (View) $\
 ---
 
 ### 4.1 Sequence Diagram 1: Login Sistem
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -361,6 +464,7 @@ sequenceDiagram
 ---
 
 ### 4.2 Sequence Diagram 2: Input Laporan Harian Kandang
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -396,6 +500,7 @@ sequenceDiagram
 ---
 
 ### 4.3 Sequence Diagram 3: Monitoring Dashboard Eksekutif
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -423,6 +528,7 @@ sequenceDiagram
 ---
 
 ### 4.4 Sequence Diagram 4: Input Bobot Panen & Perhitungan FCR / IP
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -444,6 +550,7 @@ sequenceDiagram
 ---
 
 ### 4.5 Sequence Diagram 5: Cetak Laporan Produksi Resmi
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -461,12 +568,12 @@ sequenceDiagram
     V_Ctk-->>P: Tampilkan lembar laporan & otomatis trigger window.print()
 ```
 
-
 ---
 
 ## 🏛️ 5. Class Diagram (Format Sesuai Standar UML)
 
 > **Format Kotak Kelas Sesuai Contoh Gambar:**
+>
 > - **Kotak Atas**: Nama Kelas (`PascalCase`)
 > - **Kotak Tengah (Atribut)**: `- namaVariabel: tipeData` *(Variabel di depan, tipe data di belakang)*
 > - **Kotak Bawah (Method/Operasi)**: `+ namaMethod()` *(Fungsi/operasi aksi)*
@@ -572,6 +679,7 @@ classDiagram
 ### Rincian Teks Kelas untuk Digambar Manual / Draw.io
 
 #### 1. Kelas: `User`
+
 * **Atribut (Kotak Tengah)**:
   - `- userId: int`
   - `- name: string`
@@ -590,6 +698,7 @@ classDiagram
 ---
 
 #### 2. Kelas: `Kandang`
+
 * **Atribut (Kotak Tengah)**:
   - `- kandangId: int`
   - `- kodeKandang: string`
@@ -607,6 +716,7 @@ classDiagram
 ---
 
 #### 3. Kelas: `PeriodeBatch`
+
 * **Atribut (Kotak Tengah)**:
   - `- periodeId: int`
   - `- kodePeriode: string`
@@ -629,6 +739,7 @@ classDiagram
 ---
 
 #### 4. Kelas: `InputHarian`
+
 * **Atribut (Kotak Tengah)**:
   - `- harianId: int`
   - `- periode: PeriodeBatch`
@@ -655,6 +766,7 @@ classDiagram
 ---
 
 #### 5. Kelas: `LaporanProduksi`
+
 * **Atribut (Kotak Tengah)**:
   - `- periode: PeriodeBatch`
   - `- totalMati: int`
@@ -674,6 +786,7 @@ classDiagram
 ---
 
 ### Garis Relasi & Kardinalitas Antar Kelas:
+
 1. **`Kandang` (`1`) ───────── (`1..*`) `PeriodeBatch`**
    - *Satu unit kandang bisa digunakan berulang kali untuk banyak periode pemeliharaan/batch (1 ke banyak).*
 2. **`PeriodeBatch` (`1`) ───────── (`1..*`) `InputHarian`**
@@ -686,10 +799,10 @@ classDiagram
 ---
 
 ## 📐 6. Rumus Utama Sistem (Bila Ditanyakan Dosen/Penguji)
+
 1. **Umur Ayam (Hari ke-X)**: `(Tanggal Laporan - Tanggal Masuk DOC) + 1`
 2. **Mortalitas (%)**: `(Total Kematian / Populasi Awal) × 100%`
 3. **Livability (%)**: `100% - Mortalitas (%)`
 4. **FCR Final**: `Total Pakan Terpakai (Kg) / Total Bobot Panen Riil (Kg)`
 5. **Indeks Prestasi (IP)**: `(Livability % × Rata Bobot Panen Kg) / (FCR × Umur Rata Panen) × 100`
 6. **Early Warning Alert**: Muncul jika kematian harian $\ge 1\%$ populasi awal.
-

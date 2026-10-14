@@ -53,13 +53,25 @@
               <td class="small text-muted"><?= date('d/m/Y H:i', strtotime($u->created_at)) ?></td>
               <td class="text-end">
                 <div class="d-flex justify-content-end gap-1">
-                  <a href="<?= base_url('pengguna/edit/' . $u->id) ?>" class="btn btn-sm btn-outline-warning" title="Edit Pengguna">
-                    <i class="bi bi-pencil"></i>
-                  </a>
-                  <?php if ($this->session->userdata('user_id') != $u->id): ?>
-                    <a href="<?= base_url('pengguna/hapus/' . $u->id) ?>" class="btn btn-sm btn-outline-danger" title="Hapus Pengguna" onclick="return confirm('Apakah Anda yakin ingin menghapus akun ini?');">
-                      <i class="bi bi-trash"></i>
+                  <?php if ($u->role === 'pemilik' && $this->session->userdata('role') !== 'pemilik'): ?>
+                    <button type="button" class="btn btn-sm btn-outline-secondary disabled" title="Akun Pemilik dilindungi (Hanya dapat diubah oleh Pemilik)" style="opacity: 0.55; cursor: not-allowed;">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                  <?php else: ?>
+                    <a href="<?= base_url('pengguna/edit/' . $u->id) ?>" class="btn btn-sm btn-outline-warning" title="Edit Pengguna">
+                      <i class="bi bi-pencil"></i>
                     </a>
+                  <?php endif; ?>
+                  <?php if ($this->session->userdata('user_id') != $u->id): ?>
+                    <?php if ($u->role === 'pemilik' && $this->session->userdata('role') !== 'pemilik'): ?>
+                      <button type="button" class="btn btn-sm btn-outline-secondary disabled" title="Akun Pemilik dilindungi (Tidak dapat dihapus oleh ABK/Admin)" style="opacity: 0.55; cursor: not-allowed;">
+                        <i class="bi bi-shield-lock-fill text-warning"></i>
+                      </button>
+                    <?php else: ?>
+                      <a href="<?= base_url('pengguna/hapus/' . $u->id) ?>" class="btn btn-sm btn-outline-danger" title="Hapus Pengguna" onclick="return confirm('Apakah Anda yakin ingin menghapus akun ini?');">
+                        <i class="bi bi-trash"></i>
+                      </a>
+                    <?php endif; ?>
                   <?php endif; ?>
                 </div>
               </td>

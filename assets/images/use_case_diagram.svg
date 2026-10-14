@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 740" width="100%" height="100%" style="background:#ffffff; font-family:'Segoe UI', Arial, sans-serif;">
+  <defs>
+    <!-- Arrow Marker for <<include>> and <<extend>> -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#1e293b" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#d97706" />
+    </marker>
+    <!-- Shadow filter -->
+    <filter id="drop-shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- SYSTEM BOUNDARY -->
+  <rect x="200" y="30" width="790" height="680" rx="14" ry="14" fill="#f8fafc" stroke="#334155" stroke-width="2" stroke-dasharray="6 4" />
+  <rect x="200" y="30" width="790" height="42" rx="14" ry="14" fill="#e2e8f0" />
+  <rect x="200" y="55" width="790" height="17" fill="#e2e8f0" />
+  <text x="595" y="56" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a" letter-spacing="0.5">Sistem Monitoring Ayam Broiler PT BTS (Boundary Sistem)</text>
+
+  <!-- ==================== ACTOR 1: PETUGAS ABK ==================== -->
+  <g id="actor-abk">
+    <!-- Stickman ABK -->
+    <circle cx="95" cy="180" r="16" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5" />
+    <!-- Body -->
+    <line x1="95" y1="196" x2="95" y2="245" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Arms -->
+    <line x1="65" y1="214" x2="125" y2="214" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Left Leg -->
+    <line x1="95" y1="245" x2="72" y2="288" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Right Leg -->
+    <line x1="95" y1="245" x2="118" y2="288" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Label -->
+    <rect x="25" y="296" width="140" height="24" rx="6" ry="6" fill="#0284c7" />
+    <text x="95" y="312" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">👷 Petugas ABK</text>
+  </g>
+
+  <!-- ==================== ACTOR 2: PEMILIK ==================== -->
+  <g id="actor-pemilik">
+    <!-- Stickman Pemilik -->
+    <circle cx="95" cy="470" r="16" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5" />
+    <!-- Body -->
+    <line x1="95" y1="486" x2="95" y2="535" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Arms -->
+    <line x1="65" y1="504" x2="125" y2="504" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Left Leg -->
+    <line x1="95" y1="535" x2="72" y2="578" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Right Leg -->
+    <line x1="95" y1="535" x2="118" y2="578" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Label -->
+    <rect x="30" y="586" width="130" height="24" rx="6" ry="6" fill="#4f46e5" />
+    <text x="95" y="602" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">👨‍💼 Pemilik</text>
+  </g>
+
+  <!-- ==================== 5 MAIN USE CASES (COLUMN 1) ==================== -->
+  <!-- UC-01 -->
+  <g id="uc-1" filter="url(#drop-shadow)">
+    <ellipse cx="380" cy="115" rx="100" ry="26" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+    <text x="380" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">1. Login Sistem</text>
+  </g>
+
+  <!-- UC-02 -->
+  <g id="uc-2" filter="url(#drop-shadow)">
+    <ellipse cx="380" cy="235" rx="115" ry="26" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+    <text x="380" y="240" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">2. Input Laporan Harian</text>
+  </g>
+
+  <!-- UC-03 -->
+  <g id="uc-3" filter="url(#drop-shadow)">
+    <ellipse cx="380" cy="365" rx="125" ry="26" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" />
+    <text x="380" y="370" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">3. Monitoring Dashboard</text>
+  </g>
+
+  <!-- UC-04 -->
+  <g id="uc-4" filter="url(#drop-shadow)">
+    <ellipse cx="380" cy="495" rx="120" ry="26" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" />
+    <text x="380" y="500" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">4. Input Bobot Panen</text>
+  </g>
+
+  <!-- UC-05 -->
+  <g id="uc-5" filter="url(#drop-shadow)">
+    <ellipse cx="380" cy="625" rx="120" ry="26" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" />
+    <text x="380" y="630" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">5. Cetak Laporan Produksi</text>
+  </g>
+
+  <!-- ==================== SUB USE CASES (COLUMN 2) ==================== -->
+  <!-- UC-1 Included -->
+  <g id="uc-1-inc" filter="url(#drop-shadow)">
+    <ellipse cx="780" cy="95" rx="135" ry="22" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8" />
+    <text x="780" y="99" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">Verifikasi Kredensial &amp; Role</text>
+  </g>
+
+  <!-- UC-1 Extended -->
+  <g id="uc-1-ext" filter="url(#drop-shadow)">
+    <ellipse cx="780" cy="145" rx="130" ry="22" fill="#fffbeb" stroke="#d97706" stroke-width="1.8" />
+    <text x="780" y="149" text-anchor="middle" font-size="12" font-weight="600" fill="#78350f">Tampil Pesan Gagal Login</text>
+  </g>
+
+  <!-- UC-2 Included -->
+  <g id="uc-2-inc" filter="url(#drop-shadow)">
+    <ellipse cx="780" cy="215" rx="150" ry="22" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8" />
+    <text x="780" y="219" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e3a8a">Kalkulasi Hari &amp; Rekomendasi Pakan</text>
+  </g>
+
+  <!-- UC-2 Extended -->
+  <g id="uc-2-ext" filter="url(#drop-shadow)">
+    <ellipse cx="780" cy="265" rx="130" ry="22" fill="#fffbeb" stroke="#d97706" stroke-width="1.8" />
+    <text x="780" y="269" text-anchor="middle" font-size="12" font-weight="600" fill="#78350f">Validasi Duplikasi Laporan</text>
+  </g>
+
+  <!-- UC-3 Included -->
+  <g id="uc-3-inc" filter="url(#drop-shadow)">
+    <ellipse cx="780" cy="345" rx="145" ry="22" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8" />
+    <text x="780" y="349" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">Tampil 6 Grafik Analitik Kinerja</text>
+  </g>
+
+  <!-- UC-3 Extended -->
+  <g id="uc-3-ext" filter="url(#drop-shadow)">
+    <ellipse cx="780" cy="395" rx="145" ry="22" fill="#fffbeb" stroke="#d97706" stroke-width="1.8" />
+    <text x="780" y="399" text-anchor="middle" font-size="12" font-weight="600" fill="#78350f">Peringatan Kematian Early Warning</text>
+  </g>
+
+  <!-- UC-4 Included -->
+  <g id="uc-4-inc" filter="url(#drop-shadow)">
+    <ellipse cx="780" cy="495" rx="155" ry="22" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8" />
+    <text x="780" y="499" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e3a8a">Hitung Otomatis FCR &amp; Indeks Prestasi</text>
+  </g>
+
+  <!-- UC-5 Included -->
+  <g id="uc-5-inc" filter="url(#drop-shadow)">
+    <ellipse cx="780" cy="625" rx="150" ry="22" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8" />
+    <text x="780" y="629" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e3a8a">Generate Lembar Kop PT BTS &amp; TTD</text>
+  </g>
+
+  <!-- ==================== SOLID ASSOCIATION LINES (ACTOR TO MAIN UC) ==================== -->
+  <!-- ABK to UC-1 -->
+  <line x1="125" y1="214" x2="280" y2="120" stroke="#0284c7" stroke-width="2" />
+  <!-- ABK to UC-2 -->
+  <line x1="125" y1="214" x2="265" y2="235" stroke="#0284c7" stroke-width="2" />
+
+  <!-- Pemilik to UC-1 -->
+  <line x1="125" y1="504" x2="310" y2="135" stroke="#4f46e5" stroke-width="2" />
+  <!-- Pemilik to UC-3 -->
+  <line x1="125" y1="504" x2="255" y2="368" stroke="#4f46e5" stroke-width="2" />
+  <!-- Pemilik to UC-4 -->
+  <line x1="125" y1="504" x2="260" y2="495" stroke="#4f46e5" stroke-width="2" />
+  <!-- Pemilik to UC-5 -->
+  <line x1="125" y1="504" x2="275" y2="615" stroke="#4f46e5" stroke-width="2" />
+
+  <!-- ==================== INCLUDE & EXTEND DASHED LINES ==================== -->
+  <!-- UC-1 INCLUDE Sub 1A (Arrow points to Sub 1A) -->
+  <line x1="480" y1="110" x2="640" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-blue)" />
+  <rect x="525" y="90" width="80" height="18" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="565" y="103" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">&laquo;include&raquo;</text>
+
+  <!-- Sub 1B EXTEND UC-1 (Arrow points from Sub 1B to UC-1) -->
+  <line x1="645" y1="140" x2="480" y2="125" stroke="#d97706" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-amber)" />
+  <rect x="525" y="128" width="76" height="18" rx="4" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
+  <text x="563" y="141" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">&laquo;extend&raquo;</text>
+
+  <!-- UC-2 INCLUDE Sub 2A (Arrow points to Sub 2A) -->
+  <line x1="495" y1="230" x2="625" y2="220" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-blue)" />
+  <rect x="525" y="210" width="80" height="18" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="565" y="223" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">&laquo;include&raquo;</text>
+
+  <!-- Sub 2B EXTEND UC-2 (Arrow points from Sub 2B to UC-2) -->
+  <line x1="645" y1="260" x2="495" y2="245" stroke="#d97706" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-amber)" />
+  <rect x="535" y="248" width="76" height="18" rx="4" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
+  <text x="573" y="261" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">&laquo;extend&raquo;</text>
+
+  <!-- UC-3 INCLUDE Sub 3A (Arrow points to Sub 3A) -->
+  <line x1="505" y1="360" x2="630" y2="350" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-blue)" />
+  <rect x="535" y="340" width="80" height="18" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="575" y="353" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">&laquo;include&raquo;</text>
+
+  <!-- Sub 3B EXTEND UC-3 (Arrow points from Sub 3B to UC-3) -->
+  <line x1="630" y1="390" x2="505" y2="375" stroke="#d97706" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-amber)" />
+  <rect x="535" y="378" width="76" height="18" rx="4" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
+  <text x="573" y="391" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">&laquo;extend&raquo;</text>
+
+  <!-- UC-4 INCLUDE Sub 4A (Arrow points to Sub 4A) -->
+  <line x1="500" y1="495" x2="620" y2="495" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-blue)" />
+  <rect x="525" y="486" width="80" height="18" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="565" y="499" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">&laquo;include&raquo;</text>
+
+  <!-- UC-5 INCLUDE Sub 5A (Arrow points to Sub 5A) -->
+  <line x1="500" y1="625" x2="625" y2="625" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-blue)" />
+  <rect x="525" y="616" width="80" height="18" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="565" y="629" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">&laquo;include&raquo;</text>
+
+  <!-- ==================== LEGEND / CATATAN ==================== -->
+  <g id="legend" transform="translate(220, 680)">
+    <text font-size="11" font-weight="700" fill="#334155" x="0" y="18">Keterangan Relasi UML:</text>
+    <line x1="140" y1="14" x2="190" y2="14" stroke="#475569" stroke-width="2" />
+    <text font-size="11" fill="#475569" x="198" y="18">Asosiasi (Garis lurus ke aktor)</text>
+    
+    <line x1="380" y1="14" x2="430" y2="14" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrow-blue)"/>
+    <text font-size="11" fill="#1e40af" font-weight="600" x="438" y="18">&laquo;include&raquo; (Wajib dijalankan)</text>
+
+    <line x1="620" y1="14" x2="670" y2="14" stroke="#d97706" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrow-amber)"/>
+    <text font-size="11" fill="#92400e" font-weight="600" x="678" y="18">&laquo;extend&raquo; (Opsional / kondisional ke use case dasar)</text>
+  </g>
+</svg>
